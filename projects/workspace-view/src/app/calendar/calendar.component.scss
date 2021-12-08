@@ -1,0 +1,41 @@
+.calendar-header {
+  padding: 5px;
+  background-color: white;
+  border: 1px solid #bfbfbf;
+  border-bottom: none;
+}
+
+.month-view-checklist-container {
+  white-space: nowrap;
+  width: 100%;
+  z-index: 1;
+  margin-top: 5px;
+}
+
+.month-view-checklist-container .checklist-info {
+  padding: 3px;
+  min-height: 20px;
+}
+
+.month-view-checklist-container .month-view-checklist-container:first-child {
+  margin-top: 0;
+}
+
+.cal-cell {
+  min-width: 0;
+}
+
+.cal-events {
+  // width: 100%;
+  margin: 0 !important;
+}
+
+.month-view-checklist-container .completed-badge,
+.custom-event-title .completed-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}

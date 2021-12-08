@@ -7,6 +7,8 @@ import {CalendarBaseComponent} from "./calendar-base.component";
 import {CalendarComponent} from "./calendar/calendar.component";
 import {LocationStrategy} from "@angular/common";
 import {createCustomElement} from "@angular/elements";
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 @Component({
   selector: 'entry-component',
   template: '<router-outlet></router-outlet>'
@@ -22,7 +24,7 @@ class EntryComponent extends RoutedEntryComponent {}
     BrowserModule,
     RouterModule.forRoot([
       {
-        path: 'bamzooka-calendar',
+        path: 'bamzooka_calendar',
         component: CalendarBaseComponent,
         children: [
           {
@@ -31,7 +33,11 @@ class EntryComponent extends RoutedEntryComponent {}
           }
         ]
       }
-    ])
+    ]),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [
     {provide: LocationStrategy, useClass: NoopLocationStrategy}
