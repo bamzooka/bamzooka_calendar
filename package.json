@@ -13,6 +13,12 @@
     "build-connectors": "ng build connectors --prod --localize --output-hashing none --single-bundle true",
     "build-workspace-view": "ng build workspace-view --prod --localize --output-hashing none --single-bundle true"
   },
+  "views": [
+    {
+      "name": "workspace",
+      "customElementName": "bamzooka-calendar-workspace"
+    }
+  ],
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.2.0",
@@ -24,6 +30,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@bamzooka/bamzooka-plugin-sdk": "^0.0.2",
     "@webcomponents/webcomponentsjs": "^2.6.0",
     "document-register-element": "^1.7.2",
     "ngx-build-plus": "13.0.1",
