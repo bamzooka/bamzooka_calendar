@@ -1,11 +1,12 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {Checklist, getChecklistDetailUrl} from "../../models";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'checklist-instance-dialog',
   templateUrl: './checklist-instance-dialog.component.html',
-  styleUrls: ['./checklist-instance-dialog.component.scss']
+  styleUrls: ['./checklist-instance-dialog.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ChecklistInstanceDialogComponent {
   @Input() checklist!: Checklist;

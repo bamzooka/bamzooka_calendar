@@ -30,14 +30,40 @@ export interface Checklist {
   id: number;
   assignee: any
   is_completed: boolean;
-  title:string;
+  title: string;
   is_fake_checklist: boolean;
   checklist_template_id: number;
   project: {
     workspace_id: number;
+    name: string;
   }
+  completion_percentage: number;
+  type: CHECKLIST_TYPE
+  status: CHECKLIST_STATUS;
+  due_at: string;
+  completed_at: string;
 }
 
-export const getChecklistDetailUrl = (checklist: Checklist): string  => {
+export const getChecklistDetailUrl = (checklist: Checklist): string => {
   return `workspaces/${checklist.project.workspace_id}/checklists/${checklist.id}`;
+}
+
+export const getCompletionInPercent = (checklist: Checklist): number => {
+  return checklist.completion_percentage;
+}
+
+export const isChecklistDraft = (checklist: Checklist): boolean => {
+  return checklist.status === CHECKLIST_STATUS.DRAFT;
+}
+export const isChecklistTemplate = (checklist: Checklist): boolean => {
+  return (
+    checklist.type === CHECKLIST_TYPE.CHECKLIST_TEMPLATE && !isChecklistDraft(checklist)
+  );
+}
+
+export const getChecklistTemplateUrl = (checklist: Checklist): string => {
+  return (
+    `workspaces/${checklist.project.workspace_id}` +
+    `/checklists/${checklist.checklist_template_id}`
+  );
 }

@@ -1,0 +1,76 @@
+<div class="bam-card" [ngClass]="classes">
+  <div class="bam-card-body break-words h-100">
+    <div class="h-100 d-flex flex-column justify-content-end">
+      <div class="mb-auto d-flex">
+        <div>
+          {{ checklistInstance.title
+          }}<a
+          class="ml-1"
+          *ngIf="shouldDisplayChecklistExternalLink"
+          [ngbTooltip]="checklistInstance.is_fake_checklist ? 'Open template' : 'Open checklist'"
+          [routerLink]="getChecklistDetailUrl(checklistInstance)"
+        >
+          <mc-icon [name]="'box-arrow-up-right'"></mc-icon>
+        </a>
+        </div>
+      </div>
+
+      <!-- progress bar -->
+      <!-- progress bar -->
+      <!-- progress bar -->
+      <!-- progress bar -->
+      <!--              <div class="text-muted float-left">-->
+      <!--                {{getMyCompletionInPercent(checklistInstance)}}%-->
+      <!--              </div>-->
+      <div class="mt-2 mb-1" *ngIf="!isChecklistTemplate() && !checklistInstance.is_fake_checklist">
+        <div class="animate checklist-progress-bar">
+          <ngb-progressbar
+            type="{{ wasCompletedTooLate() ? 'danger' : 'success' }}"
+            [value]="getMyCompletionInPercent()"
+            height="5px"
+          >
+          </ngb-progressbar>
+        </div>
+      </div>
+
+      <div class="other-infos d-flex align-items-center mt-1" style="font-size: 12px; width: 100%">
+        <div>
+          <user-badge
+            [badgeType]="'square'"
+            [style]="getUserBadgeStyle()"
+            [classes]="['text-muted', 'mr-1']"
+            [user]="checklistInstance.assignee"
+          ></user-badge>
+        </div>
+
+        <div
+          class="due-date mr-1"
+          *ngIf="checklistInstance.due_at && !checklistInstance.is_completed"
+        >
+          <!-- Due date -->
+          <due-date-badge
+            [dueDate]="getChecklistDueDate()!"
+            [isCompleted]="checklistInstance.is_completed"
+          ></due-date-badge>
+        </div>
+        <!-- completed badge -->
+        <div
+          class="completed-badge mr-1"
+          *ngIf="!shouldDisplayCompletionCheckbox && checklistInstance.is_completed"
+        >
+          <span class="badge" [ngClass]="wasCompletedTooLate() ? 'badge-danger' : 'badge-success'"
+          >completed</span
+          >
+        </div>
+        <!-- team -->
+        <div class="mr-1 text-muted ellipsis" [title]="checklistInstance.project.name">
+          <mc-icon [name]="'people'"></mc-icon>&nbsp;{{ checklistInstance.project.name }}
+        </div>
+      </div>
+
+      <div class="mt-1 small-text text-muted" *ngIf="checklistInstance.is_fake_checklist">
+        *This checklist will be ready on the above date.
+      </div>
+    </div>
+  </div>
+</div>

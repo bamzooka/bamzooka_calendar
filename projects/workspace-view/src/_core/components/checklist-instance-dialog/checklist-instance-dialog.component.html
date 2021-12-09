@@ -18,11 +18,10 @@
 </div>
 
 <div class="modal-body checklist-detail-dialog-body">
-  TODO
-<!--  <bam-f-sh-checklist-instance-->
-<!--    [checklistInstance]="checklist"-->
-<!--    [classes]="['custom-checklist-instance']"-->
-<!--  ></bam-f-sh-checklist-instance>-->
+  <app-checklist-instance
+    [checklistInstance]="checklist"
+    [classes]="['custom-checklist-instance']"
+  ></app-checklist-instance>
 </div>
 
 <div class="modal-footer">
@@ -38,5 +37,6 @@
     ><span *ngIf="checklist.is_fake_checklist">go to template</span>&nbsp;<mc-icon
     [name]="'box-arrow-up-right'"
   ></mc-icon
-  ></a>
+  >
+  </a>
 </div>

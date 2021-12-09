@@ -10,12 +10,14 @@ import {createCustomElement} from "@angular/elements";
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {McIconModule, McPaginationModule, McPipeTruncateModule, McUserBadgeModule} from "@bamzooka/ui-kit";
-import {Check, CalendarWeek, CardChecklist, BoxArrowUpRight} from '@bamzooka/ui-kit-icon';
-import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
+import {Check, CalendarWeek, CardChecklist, BoxArrowUpRight, Clock, PersonDash, People} from '@bamzooka/ui-kit-icon';
+import {NgbDropdownModule, NgbProgressbarModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 import {
-  ChecklistInstanceDialogComponent, UserBadgeComponent
+  ChecklistInstanceComponent,
+  ChecklistInstanceDialogComponent, DueDateBadgeComponent, UserBadgeComponent
 } from "../_core";
 import {HttpClientModule} from "@angular/common/http";
+import {DueDatePipe} from "../_core/pipes/due-date.pipe";
 
 @Component({
   selector: 'entry-component',
@@ -30,7 +32,10 @@ class EntryComponent extends RoutedEntryComponent {
     CalendarBaseComponent,
     CalendarComponent,
     ChecklistInstanceDialogComponent,
-    UserBadgeComponent
+    UserBadgeComponent,
+    ChecklistInstanceComponent,
+    DueDateBadgeComponent,
+    DueDatePipe,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +63,14 @@ class EntryComponent extends RoutedEntryComponent {
       Check,
       CalendarWeek,
       CardChecklist,
-      BoxArrowUpRight
+      BoxArrowUpRight,
+      Clock,
+      PersonDash,
+      People
     }),
-    McUserBadgeModule
+    McUserBadgeModule,
+    NgbTooltipModule,
+    NgbProgressbarModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: NoopLocationStrategy}
