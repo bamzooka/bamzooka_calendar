@@ -276,6 +276,13 @@
     symbol-observable "4.0.0"
     uuid "8.3.2"
 
+"@angular/common@12.2.13":
+  version "12.2.13"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-12.2.13.tgz#fe52ffae8668c1dec41b26cdc3a749101399e1fe"
+  integrity sha512-I1t/jl9ojCwTJKT7PKHnk23D+vMHTHS/9qZ2nndCjzGusMK8029nn8l3tHAkwefvxZWSaLAk1MgsVcP+rHQNsQ==
+  dependencies:
+    tslib "^2.2.0"
+
 "@angular/common@~12.2.0":
   version "12.2.14"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-12.2.14.tgz#0cd0d75be8052e8be76966e494f245dc595afe10"
@@ -307,6 +314,13 @@
   version "12.2.14"
   resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-12.2.14.tgz#360940f5e505a00892b46dd28ca69b9a37bdf6af"
   integrity sha512-dwmZi+n66IUzRFlGWu9mjXq170ZEsaDvlNLZzaPgs6vZTa4Kt7PWvIF/Y7TMvnVv/uqNG6kOhfmOkf6rfz1Gjg==
+  dependencies:
+    tslib "^2.2.0"
+
+"@angular/core@12.2.13":
+  version "12.2.13"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-12.2.13.tgz#fc40acbdcee5c5878bd249ddc0d643be724076c3"
+  integrity sha512-tZ5nAnmOi418JDaJIFiiP9z2JrluMJZvUvXO4QDUs52BXaL2yuP7MJ2LczWOVJXrBLZXeZGfjDjZmaFPA24grg==
   dependencies:
     tslib "^2.2.0"
 
@@ -351,6 +365,13 @@
   version "12.2.14"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-12.2.14.tgz#2c00d5f341827dc1de4ade98abcf329f0824790c"
   integrity sha512-fWcE2rnJ3ZCISa1oPfsIDV7FBZBoLFEdDuMXAiDYqDPKvF/E5U5nHrS+K4SlLAi094bMobtTOReNWl/Ienniyw==
+  dependencies:
+    tslib "^2.2.0"
+
+"@angular/router@12.2.13":
+  version "12.2.13"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-12.2.13.tgz#e5b939a9675f9d4834fee3e75eb8d040ef63b3b5"
+  integrity sha512-HZL/Pzp6I7fQiMLrzfEzhnqhgNcGcFjBgMMOoLp5IA1IV26rp1NU6zYJzPrXtopBx7XLl8BECehAwFqrJsu/PQ==
   dependencies:
     tslib "^2.2.0"
 
@@ -1498,10 +1519,231 @@
     rxjs "~6.5.5"
     tslib "^2.0.0"
 
-"@bamzooka/utils-color@^0.0.51":
+"@bamzooka/ui-kit-attachment@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-attachment/-/ui-kit-attachment-0.0.50.tgz#4fd77ffdb7dea7e575615491c81ae8218193f671"
+  integrity sha512-Pofi+iVZg90JAfo0lMuLe5nmX9EqCyM9WnzP0h3oZPAPSyLfc1Ycz9jUJAU+rBYYe2kpj2eKlIr2fsEy7otxJg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-click-outside@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-click-outside/-/ui-kit-click-outside-0.0.50.tgz#6939ba4985c10b14cba6921856dff5e418b6a27c"
+  integrity sha512-FtPuUBPjOyw19VwRpoHJHyVdsDoUVdC0ehZyEufqBGuBeG/6JNxhapPO3UG/CSlZrxPkioMqjV4dixffZh1XXA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-confirmation-dialog@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-confirmation-dialog/-/ui-kit-confirmation-dialog-0.0.50.tgz#24faa202f8c585c6e68af62eaf579b0101c4079e"
+  integrity sha512-d4N2n/+v1aDblSdRHvUO4qUMBQjgkK55vqk0bM2Pe3K+2L2bQMgpVjL5K53uZA2HslAq1ut1Hk+8ZfwKqHH6Ng==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-copy@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-copy/-/ui-kit-copy-0.0.8.tgz#fca011f06f48e7688f4295aef925945358faee81"
+  integrity sha512-7y4ElOzujZdtNy2uH1H5J3ZvuKOpc031flQNyNm2mY+4ZQwZEoboLjEAq/L0MjXodQj42OX9hNGlxaiN5NR56A==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-dialog-input@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-dialog-input/-/ui-kit-dialog-input-0.0.50.tgz#326b013f256aa32e3a0e95438d15a4d4bb3fbf6c"
+  integrity sha512-pMCG9ymv+nZhtld8wE5WoX4BfbW5mHc77Ch2Z9JqDP57NbfRA8asgAq9HxTEiJbLtvIfv9TMxC92lu6aodBRaA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-dynamic-form@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-dynamic-form/-/ui-kit-dynamic-form-0.0.50.tgz#92c1c86572b5d1c5f9e362ec180e95741c5f10ad"
+  integrity sha512-NVOtV3/6sASCPfnV01MacgkpV6WriKNXORnDE8gjW3DUs2y7Isyscw7xwUj/+tHyI6+dTNYPkQH4A5gvqRdw0A==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-editable-input@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-editable-input/-/ui-kit-editable-input-0.0.50.tgz#7acd74849c80b721791645db403c02d76a971c62"
+  integrity sha512-krmypOcuwTMDijiFto+27kyxaOUK+ZPu5QEod2M/dgb3Tt+MJhTO0GFXjRwndQXZU5vOvzk34tBQZTJG5ETa2w==
+  dependencies:
+    "@angular/router" "12.2.13"
+    "@bamzooka/ui-kit-focusable" "0.0.50"
+    "@bamzooka/ui-kit-icon" "0.0.50"
+    "@bamzooka/utils-keyboard" "0.0.53"
+    "@bamzooka/utils-testing" "0.0.51"
+    rxjs "~6.5.5"
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-fancy-checkbox@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-fancy-checkbox/-/ui-kit-fancy-checkbox-0.0.50.tgz#926286c68c571e8c18b186b86b9d2623ab63daea"
+  integrity sha512-PYHQhd0hXquSOyYddXiCC7hXLlfxqxeIde8mT9w99v58Oo1QO8S+4UDdMkYFFhSwV1hTtJcTfB5SmwNL3LuJ8w==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-filter@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-filter/-/ui-kit-filter-0.0.50.tgz#0705309b1242099591a6c00ac07779493526f3a5"
+  integrity sha512-QjPVJMf63V9j11pzQn3lgLBuyM2o6a4D6inWBOI5sw6Zl8bQgzYAC1lQFQtRMjut5J3q/KcUnD7bajCv460Vbg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-flash-notice@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-flash-notice/-/ui-kit-flash-notice-0.0.50.tgz#926292693abad965020d4895516d74510ea72afd"
+  integrity sha512-OD3aPFCe8F79PZvIwLen53lvU2+H5ENPC/Ug/agSw8RDL1sbgo1+gpCQgRGXuv59UbzR2a3GdhLK6WLwrbn83A==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-focusable@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-focusable/-/ui-kit-focusable-0.0.50.tgz#a86ce3627b7582bd74e918f5727a963691e03443"
+  integrity sha512-RiPT+sIRF1NWnxVqA+4CJynmlKCKwGFH2wSS3HlnTcOYbROx617uNMbCICeEbWdehRBLpjffy4Linvsx35PmrQ==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-icon@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-icon/-/ui-kit-icon-0.0.50.tgz#c3ee56a3fc88241c97d9a98d81a22eaa4d55692c"
+  integrity sha512-FcIgFu82IXgG2NcxVkmlEA8nvvMpyRrWiKOrWxzBNxOCwUZz2T8PFLDNLKB34ErW8/N1xKfAFJseo3x3hNmQnw==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-logger@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-logger/-/ui-kit-logger-0.0.50.tgz#17a5b97724a8d390178546f9e6f207c51fe2b9c4"
+  integrity sha512-0xBtI35F6qEVgD1V/apah7SuUXAvUBfBT3gZh5MFk5XsRG83cZvBcnWaAyMxMjDJnWeXHDm+hsCdCC7Jt724yw==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-pagination@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-pagination/-/ui-kit-pagination-0.0.50.tgz#e37a15224484a17b93ca9bf80d47337ff7555f49"
+  integrity sha512-jnc8OdA074nEOiaDwcSW5EyjUztqoNCiLwieIke/hFOND4mTBA/+DtK5j+/fThKlexCGE5r6aZPD5bdGS1KChw==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-pipe-date-ago@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-pipe-date-ago/-/ui-kit-pipe-date-ago-0.0.50.tgz#0c6af549aab4d934c22d945bb3cac33ecc256b53"
+  integrity sha512-+QM6GvJrOt8uRYr43U3NnOBSrNMKr8rO5xnupJ9dlhk3repJPa22w1sRaPl8r9vLbYWWyxgooZv9nUeo6loImg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-pipe-truncate@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-pipe-truncate/-/ui-kit-pipe-truncate-0.0.50.tgz#285b56aad9457595afec85b85f63f7784717a745"
+  integrity sha512-ls9xR5g+glKwKtl4cx208/yFMUtnOz+h6Nag5rujlYZZxbfNYLmPd2aIbmRP1PczZAa/buRQx+OesAaUGX2cUA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-sort@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-sort/-/ui-kit-sort-0.0.50.tgz#26bc60e3860a9b37cbf8382cc4f176ba6680f32f"
+  integrity sha512-XDwp1cEzt8eR+dxssbuHFU8Bx9ZhKKGjPzTp5yOpF1Y47SHBbIXJyjFvGzNjKLfDzbByv/rd9KXxRcVAn6N6RA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-spinner@0.0.51":
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-spinner/-/ui-kit-spinner-0.0.51.tgz#21ab8f1ed975729da1499ce706bab880deb458d3"
+  integrity sha512-753kUtqn1a9c5clrdKhIQHD/ra+GtqBHmIiJ9wAzvKlwQDuieaXc03KEavasZkv9v7/AhBx13oy0mFKi/EvPEQ==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-structural-directives@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-structural-directives/-/ui-kit-structural-directives-0.0.8.tgz#fbd4e5dd52d2c3f9d6482b9517c52099b4e3ec1c"
+  integrity sha512-lhlOPsCH1lDBxLEzFYprR1+28gVwe71kn3AxfsDdb9xWeEaKYmhcxmcLLoL2Mv28Q0ScHes27hyrOCERNgOtEg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-user-badge@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-user-badge/-/ui-kit-user-badge-0.0.50.tgz#9cbb377bbae460b066ca35be44517fee6a3bffbc"
+  integrity sha512-o+6x7gjvINbQ68QICFQ2Pun9laVOp9Pzz68pUD2IBC7/Jzi1VshDvO+v2aq+wKezz18PXdbZoM/u+dd4MIavew==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit-user-search@0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit-user-search/-/ui-kit-user-search-0.0.50.tgz#2dff77d0aac78dc47bd4d46d6f975482be5361d7"
+  integrity sha512-yPDBH5frnWx2/drSDP/VG/T0JS+gXZ9//u3PkHXGCnF0ECiqQDzxfiF1uo1KE14fMYgamaIQzks/mC44vGtOOA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@bamzooka/ui-kit@^0.0.51":
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/@bamzooka/ui-kit/-/ui-kit-0.0.51.tgz#e75dc6fb24fee9ff1ee853f08573916dbd0c66f5"
+  integrity sha512-RO8sHhqC3RbLifybhJbjbwxvruvqxBMI19RKNxwXUylUtZFjSjq0MMYYyWyZKLxo08NvePL6kM5x7hMrhSfJFg==
+  dependencies:
+    "@bamzooka/ui-kit-attachment" "0.0.50"
+    "@bamzooka/ui-kit-click-outside" "0.0.50"
+    "@bamzooka/ui-kit-confirmation-dialog" "0.0.50"
+    "@bamzooka/ui-kit-copy" "0.0.8"
+    "@bamzooka/ui-kit-dialog-input" "0.0.50"
+    "@bamzooka/ui-kit-dynamic-form" "0.0.50"
+    "@bamzooka/ui-kit-editable-input" "0.0.50"
+    "@bamzooka/ui-kit-fancy-checkbox" "0.0.50"
+    "@bamzooka/ui-kit-filter" "0.0.50"
+    "@bamzooka/ui-kit-flash-notice" "0.0.50"
+    "@bamzooka/ui-kit-focusable" "0.0.50"
+    "@bamzooka/ui-kit-icon" "0.0.50"
+    "@bamzooka/ui-kit-logger" "0.0.50"
+    "@bamzooka/ui-kit-pagination" "0.0.50"
+    "@bamzooka/ui-kit-pipe-date-ago" "0.0.50"
+    "@bamzooka/ui-kit-pipe-truncate" "0.0.50"
+    "@bamzooka/ui-kit-sort" "0.0.50"
+    "@bamzooka/ui-kit-spinner" "0.0.51"
+    "@bamzooka/ui-kit-structural-directives" "0.0.8"
+    "@bamzooka/ui-kit-user-badge" "0.0.50"
+    "@bamzooka/ui-kit-user-search" "0.0.50"
+    "@bamzooka/utils-bootstrap" "0.0.8"
+    "@bamzooka/utils-color" "0.0.51"
+    "@bamzooka/utils-explosion" "0.0.51"
+    "@bamzooka/utils-general" "0.0.51"
+    "@bamzooka/utils-keyboard" "0.0.53"
+    "@bamzooka/utils-testing" "0.0.51"
+    ts-md5 "^1.2.7"
+    tslib "^2.0.0"
+
+"@bamzooka/utils-bootstrap@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@bamzooka/utils-bootstrap/-/utils-bootstrap-0.0.8.tgz#4dd6007715333f7a394ae4c767acb8fe14c0bb39"
+  integrity sha512-I0aGjIXFNFtrQTmK3esPz1ENRI519OT87ALMNSRGz+yEqO4bxxjHouj+elht60K6VLWT69lBbu0V+D6k2WLlXQ==
+
+"@bamzooka/utils-color@0.0.51":
   version "0.0.51"
   resolved "https://registry.yarnpkg.com/@bamzooka/utils-color/-/utils-color-0.0.51.tgz#ee7e615dc75be8a9217fc669906bb5afbed69b49"
   integrity sha512-MizJO2Jidn2heQ73B/8fz3v43X3nPT/o9uY6kU+vDDpeDOZXVtuRjhkK4N+fdLMoHKK6G1dWxGMKmkuOz/BKpQ==
+
+"@bamzooka/utils-explosion@0.0.51":
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/@bamzooka/utils-explosion/-/utils-explosion-0.0.51.tgz#5f84858b0c05c033fcc2b5fcc250dc7314eccbd0"
+  integrity sha512-1Oyw5qJbr8DIbo+T0PVDl4TLPSazDW/ao8+SB0SqU7xx16C93kMuR5ZjsswQ6Zoq4e97c7eASLlS728Qm6NrxQ==
+
+"@bamzooka/utils-general@0.0.51":
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/@bamzooka/utils-general/-/utils-general-0.0.51.tgz#57be059d196c1fea250fbaab1ed1aba451bd09bf"
+  integrity sha512-R70Ioyc84tc9xko4uwcyHfDjjNfgan7hgJgaJS9kaw5g+UWHs7lr5hXMC2WqdwFes97xedKKTcTRJtR+D6o/1w==
+  dependencies:
+    "@angular/common" "12.2.13"
+    "@angular/router" "12.2.13"
+    ts-md5 "^1.2.7"
+
+"@bamzooka/utils-keyboard@0.0.53":
+  version "0.0.53"
+  resolved "https://registry.yarnpkg.com/@bamzooka/utils-keyboard/-/utils-keyboard-0.0.53.tgz#57c082d1c8868748d9c09a22aec26ad72e98e072"
+  integrity sha512-H5AKCYHjMyZC4AhPbzjUKy7VCMDjZFx+r1Is5Kn0MNUKNqqTysDvDYGJod7Q2e+5tjGwqj6/heZael3OO+VdGg==
+
+"@bamzooka/utils-testing@0.0.51":
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/@bamzooka/utils-testing/-/utils-testing-0.0.51.tgz#78b02b4cc634c8b7316d9731d78ee463076d7362"
+  integrity sha512-HQtwdp8CJ1XjioEB+/rJZQmUPlNcfdR5tSQK2Y4Y9zWRTx6UqY1ybHB/rqRZ8g9NL2VJsQc49IQb6FQSRqjwrQ==
+  dependencies:
+    "@angular/core" "12.2.13"
+    "@angular/router" "12.2.13"
+    rxjs "~6.5.5"
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
@@ -8316,6 +8558,11 @@ tree-kill@1.2.2, tree-kill@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
+
+ts-md5@^1.2.7:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.10.tgz#65c9208697a2478269e5e4f45518090fe46dcdcb"
+  integrity sha512-ZpBxcZRHSqVMWU4lE6pTMM6PTxSNZM6ziLwasimxxE/SiItgdalL8bKproawJ+6cPR4M2mSD4+cAgt90VYzjUQ==
 
 tslib@2.3.0:
   version "2.3.0"

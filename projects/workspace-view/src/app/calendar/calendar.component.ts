@@ -1,24 +1,45 @@
-import {ChangeDetectorRef, Component} from "@angular/core";
+import {ChangeDetectorRef, Component, ViewEncapsulation} from "@angular/core";
 import {
-  CalendarView, CalendarViewPeriod, CalendarEventAction,
-  CalendarEvent, CalendarMonthViewBeforeRenderEvent, CalendarWeekViewBeforeRenderEvent, CalendarDayViewBeforeRenderEvent
+  CalendarDayViewBeforeRenderEvent,
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarMonthViewBeforeRenderEvent,
+  CalendarView,
+  CalendarViewPeriod,
+  CalendarWeekViewBeforeRenderEvent
 } from "angular-calendar";
-import {Subject, Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {forkJoin, Subject, Subscription} from "rxjs";
+import {ActivatedRoute, Params} from "@angular/router";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import { isAfter, isBefore, isSameDay, isSameMonth } from 'date-fns';
-import {areDatesEqual, areDatesSameDay} from "../models/checklist-calendar-events";
-import { WeekDay, MonthViewDay } from 'calendar-utils';
-// import {Checklist}
+import {isAfter, isBefore, isSameDay, isSameMonth} from 'date-fns';
+import {MonthViewDay, WeekDay} from 'calendar-utils';
+import {
+  areDatesEqual,
+  areDatesSameDay,
+  Checklist,
+  CHECKLIST_FILTER,
+  CHECKLIST_STATUS,
+  CHECKLIST_TYPE, ChecklistInstanceDialogComponent,
+  EVENT_COLOR_MEANING,
+  getEventsForChecklists, getFnsDate,
+  HandleErrorService,
+  SchedulerFilter
+} from "../../_core";
+import {McLoggerService} from "@bamzooka/ui-kit-logger";
+import {HttpParams} from "@angular/common/http";
+import {finalize} from "rxjs/operators";
+import {DataService} from "../../_core/services/data.service";
 
 enum EVENT_ACTION {
   CLICKED = 'Clicked',
   VIEW = 'View'
 }
+
 @Component({
   selector: 'bamzooka-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CalendarComponent {
   eventActions = EVENT_ACTION;
@@ -38,21 +59,20 @@ export class CalendarComponent {
     // }
   ];
 
-  checklists: any[] = [];
+  checklists: Checklist[] = [];
   events: CalendarEvent[] = [];
   activeDayIsOpen = false;
   httpCallInProgress = false;
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private workspaceService: WorkspaceService,
-    private checklistService: ChecklistService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    private schedulerService: SchedulerService,
     private handleErrorsService: HandleErrorService,
-    private logger: McLoggerService
-  ) {}
+    private logger: McLoggerService,
+    private dataService: DataService
+  ) {
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(() => {
@@ -68,9 +88,13 @@ export class CalendarComponent {
     }
   }
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen) || events.length === 0);
+  get currentWorkspace(): any {
+    return (window as any).currentWorkspace;
+  }
+
+  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(getFnsDate(date), getFnsDate(this.viewDate))) {
+      this.activeDayIsOpen = !((isSameDay(getFnsDate(this.viewDate), getFnsDate(date)) && this.activeDayIsOpen) || events.length === 0);
       this.viewDate = date;
     }
   }
@@ -109,19 +133,21 @@ export class CalendarComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.logger.info(`DashboardCalendar: handle ${action} event for event id=${event.id}`);
-    let checklistAssociated: any;
+    let checklistAssociated: Checklist | undefined;
     switch (action) {
       case EVENT_ACTION.VIEW:
         break;
 
       case EVENT_ACTION.CLICKED:
         checklistAssociated = this.getChecklistForEvent(event);
-        this.openChecklistDetailDialog(checklistAssociated);
+        if (checklistAssociated) {
+          this.openChecklistDetailDialog(checklistAssociated);
+        }
         break;
     }
   }
 
-  getChecklistForEvent(calendarEvent: CalendarEvent): any {
+  getChecklistForEvent(calendarEvent: CalendarEvent): Checklist | undefined {
     return this.checklists.find((c) => c.id === calendarEvent.id);
   }
 
@@ -146,13 +172,13 @@ export class CalendarComponent {
       const depthRight = 7 - 1 - day.date.getDay();
       firstDayOfRow.setDate(day.date.getDate() - depthLeft);
       lastDayOfRow.setDate(day.date.getDate() + depthRight);
-      const begin1: Date = isBefore(e1.start, firstDayOfRow) ? firstDayOfRow : e1.start;
+      const begin1: Date = isBefore(getFnsDate(e1.start), getFnsDate(firstDayOfRow)) ? firstDayOfRow : e1.start;
       // @ts-ignore
-      const end1: Date = isAfter(e1.end, lastDayOfRow) ? lastDayOfRow : e1.end;
+      const end1: Date = isAfter(getFnsDate(e1.end), getFnsDate(lastDayOfRow)) ? lastDayOfRow : e1.end;
 
-      const begin2: Date = isBefore(e2.start, firstDayOfRow) ? firstDayOfRow : e2.start;
+      const begin2: Date = isBefore(getFnsDate(e2.start),getFnsDate(firstDayOfRow)) ? firstDayOfRow : e2.start;
       // @ts-ignore
-      const end2: Date = isAfter(e2.end, lastDayOfRow) ? lastDayOfRow : e2.end;
+      const end2: Date = isAfter(getFnsDate(e2.end), getFnsDate(lastDayOfRow)) ? lastDayOfRow : e2.end;
 
       const period1 = Math.abs(end1.getTime() - begin1.getTime());
       const period2 = Math.abs(end2.getTime() - begin2.getTime());
@@ -179,10 +205,14 @@ export class CalendarComponent {
   }
 
   isTextEllipsis(event: CalendarEvent, day: MonthViewDay): boolean {
-    return !event.end || isSameDay(event.end, day.date);
+    return !event.end || isSameDay(getFnsDate(event.end), getFnsDate(day.date));
   }
 
-  private openChecklistDetailDialog(checklist: any): void {
+  stringToDate(date: string): Date {
+    return new Date(date);
+  }
+
+  private openChecklistDetailDialog(checklist: Checklist): void {
     this.logger.info(`DashboardCalendar: openChecklistDetailDialog checklist id=${checklist.id}`);
     // open the modal
     const ref = this.modalService.open(ChecklistInstanceDialogComponent);
@@ -206,13 +236,13 @@ export class CalendarComponent {
     const queryParamsForFakeChecklists: Params = {
       ...this.route.snapshot.queryParams
     };
-    const schedulerStartDate: Date = isBefore(period.start, new Date()) ? new Date() : period.start;
-    const schedulerEndDate: Date = isBefore(period.end, new Date()) ? new Date() : period.end;
+    const schedulerStartDate: Date = isBefore(getFnsDate(period.start), getFnsDate(new Date())) ? new Date() : period.start;
+    const schedulerEndDate: Date = isBefore(getFnsDate(period.end), getFnsDate(new Date())) ? new Date() : period.end;
     queryParamsForFakeChecklists[SchedulerFilter.IS_EXPIRED] = false;
     queryParamsForFakeChecklists[SchedulerFilter.START_DATE] = schedulerStartDate.toString();
     queryParamsForFakeChecklists[SchedulerFilter.END_DATE] = schedulerEndDate.toString();
 
-    const workspaceId = this.workspaceService.getCurrentWorkspaceId();
+    const workspaceId = this.currentWorkspace.id
     const checklistParams = new HttpParams({
       fromObject: queryParamsForChecklists
     });
@@ -226,17 +256,17 @@ export class CalendarComponent {
     this.logger.info(`DashboardCalendar getFakeChecklists with params:`);
     this.logger.table(queryParamsForFakeChecklists);
     forkJoin([
-      this.checklistService.getChecklists(checklistParams, workspaceId),
-      this.schedulerService.getFakeChecklistsFromScheduler(workspaceId, fakeChecklistParams)
+      this.dataService.getChecklists(checklistParams, workspaceId),
+      this.dataService.getFakeChecklistsFromScheduler(fakeChecklistParams, workspaceId)
     ])
       .pipe(finalize(() => (this.httpCallInProgress = false)))
       .subscribe(
-        (checklistsAndFakeChecklists) => {
+        (checklistsAndFakeChecklists: any) => {
           const checklists = checklistsAndFakeChecklists[0].concat(checklistsAndFakeChecklists[1]);
           this.checklists = checklists;
           this.createEventsForChecklists(checklists, period);
         },
-        (err) => {
+        (err: any) => {
           this.handleErrorsService.displayCloudErrorToUser(err);
         }
       );
@@ -251,4 +281,7 @@ export class CalendarComponent {
       this.actions
     );
 
+    console.log('+++++events', this.events);
+
   }
+}

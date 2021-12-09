@@ -111,14 +111,14 @@
     <div class="cal-cell-top">
       <!-- <span class="cal-day-badge"
       *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span> -->
-      <span class="cal-day-number">{{ day.date | calendarDate: 'monthViewDayNumber':locale }}</span>
+      <span class="cal-day-number">{{ stringToDate(day.date) | calendarDate: 'monthViewDayNumber':locale }}</span>
     </div>
-    <div class="cal-events d-flex flex-column justify-content-end" *ngIf="day.events.length > 0">
+    <div class="cal-events d-flex flex-column justify-content-end" *ngIf="day?.events?.length > 0">
       <div
         *ngFor="let event of getSortedDayEvents(day)"
         class="month-view-checklist-container"
         [style.z-index]="shouldDisplayChecklistForEventForDay(event, day) ? '1' : '0'"
-        [ngClass]="event?.cssClass"
+        [ngClass]="event?.cssClass || ''"
         [style.backgroundColor]="event.color?.primary"
         (mouseenter)="highlightDay.emit({ event: event })"
         (mouseleave)="unhighlightDay.emit({ event: event })"
@@ -138,11 +138,11 @@
         >
           <!-- User badge -->
           <div class="mr-1" *ngIf="getChecklistForEvent(event)?.assignee">
-            <bam-ui-user-badge
+            <user-badge
               [style]="{ width: '20px', height: '20px' }"
               [classes]="['text-muted']"
-              [user]="getChecklistForEvent(event).assignee"
-            ></bam-ui-user-badge>
+              [user]="getChecklistForEvent(event)?.assignee"
+            ></user-badge>
           </div>
           <!-- Checkmark if completed -->
           <div class="mr-1" *ngIf="getChecklistForEvent(event)?.is_completed">
@@ -150,8 +150,8 @@
               <mc-icon [name]="'check'"></mc-icon>
             </span>
           </div>
-          <div class="ellipsis pt-1 pb-1">
-            {{ getChecklistForEvent(event)?.title | mcTruncate: 100 }}
+          <div class="ellipsis pt-1 pb-1" *ngIf="getChecklistForEvent(event)?.title">
+            {{ getChecklistForEvent(event)?.title || ''  | mcTruncate: 100 }}
           </div>
         </div>
       </div>
@@ -166,11 +166,11 @@
         style="width: 20px; height: 20px"
         *ngIf="getChecklistForEvent(event)?.assignee"
       >
-        <bam-ui-user-badge
+        <user-badge
           [style]="{ width: '20px', height: '20px' }"
           [classes]="['text-muted']"
-          [user]="getChecklistForEvent(event).assignee"
-        ></bam-ui-user-badge>
+          [user]="getChecklistForEvent(event)?.assignee"
+        ></user-badge>
       </div>
       <!-- Checkmark if completed -->
       <div class="mr-1" *ngIf="getChecklistForEvent(event)?.is_completed">
@@ -178,8 +178,8 @@
           <mc-icon [name]="'check'"></mc-icon>
         </span>
       </div>
-      <div class="ellipsis">
-        {{ getChecklistForEvent(event)?.title | mcTruncate: 100 }}
+      <div class="ellipsis" *ngIf="getChecklistForEvent(event)?.title">
+        {{ getChecklistForEvent(event)?.title || '' | mcTruncate: 100 }}
       </div>
     </div>
   </ng-template>

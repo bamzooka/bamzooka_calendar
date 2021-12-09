@@ -7,6 +7,7 @@ import {
 } from 'angular-calendar';
 import { generateColorFromNumber, hexToRgb } from '@bamzooka/utils-color';
 import { isWithinInterval, isAfter } from 'date-fns';
+import {getFnsDate} from "./index";
 
 
 export function areDatesEqual(d1: Date, d2: Date): boolean {
@@ -109,8 +110,9 @@ function getChecklistIsAllDay(
 
       if (
         isWithinInterval(startDate, {
-          start: period.start,
-          end: period.end
+          start:
+         getFnsDate(period.start),
+          end: getFnsDate(period.end)
         })
       ) {
         return false;
@@ -118,7 +120,7 @@ function getChecklistIsAllDay(
       if (!checklist.due_at) {
         return false;
       }
-      return !isWithinInterval(new Date(checklist.due_at), {
+      return !isWithinInterval(getFnsDate(checklist.due_at), {
         start: period.start,
         end: period.end
       });
@@ -150,7 +152,7 @@ function getChecklistDueDateEventColor(checklist: any): ChecklistEventColor {
   } else {
     if (checklist.due_at) {
       if (checklist.completed_at) {
-        if (isAfter(new Date(checklist.completed_at), new Date(checklist.due_at))) {
+        if (isAfter(getFnsDate(checklist.completed_at), getFnsDate(checklist.due_at))) {
           color = '#dc3545';
         } else {
           color = '#28a745';
@@ -169,7 +171,7 @@ function getChecklistDueDateEventColor(checklist: any): ChecklistEventColor {
 }
 
 function getChecklistEndDate(checklist: any): Date | null {
-  return checklist.due_at && isAfter(new Date(checklist.due_at), checklist.created_at)
+  return checklist.due_at && isAfter(getFnsDate(checklist.due_at), getFnsDate(checklist.created_at))
     ? new Date(checklist.due_at)
     : null;
 }

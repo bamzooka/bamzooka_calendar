@@ -1,0 +1,41 @@
+<!--Mc user badge when user provided-->
+<!--Mc user badge when user provided-->
+<!--Mc user badge when user provided-->
+<!--Mc user badge when user provided-->
+<ng-container *ngIf="user">
+  <ng-container [ngSwitch]="getPictureType()">
+    <mc-user-badge
+      *ngSwitchCase="pictureTypes.GRAVATAR"
+      [badgeType]="badgeType"
+      [classes]="classes"
+      [style]="style"
+      [userPictureUrl]="getGravatarUrl()"
+    ></mc-user-badge>
+    <mc-user-badge
+      *ngSwitchCase="pictureTypes.INITIALS"
+      [email]="user.email"
+      [classes]="classes"
+      [style]="style"
+      [badgeType]="badgeType"
+      [fullName]="user.name"
+    ></mc-user-badge>
+  </ng-container>
+</ng-container>
+
+<!--Unassigned badge when user not provided-->
+<!--Unassigned badge when user not provided-->
+<!--Unassigned badge when user not provided-->
+<!--Unassigned badge when user not provided-->
+<div class="d-inline-block" *ngIf="!user">
+  <div class="d-inline-block" [ngClass]="classes">
+    <div
+      class="unassigned text-center"
+      [class.rounded-circle]="badgeType === 'circle'"
+      [class.rounded]="badgeType === 'square'"
+      [ngStyle]="style"
+      *ngIf="!user"
+    >
+      <mc-icon [name]="'person-dash'"></mc-icon>
+    </div>
+  </div>
+</div>

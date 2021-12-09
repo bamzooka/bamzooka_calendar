@@ -1,0 +1,13 @@
+.checklist-detail-dialog-body {
+  .custom-checklist-instance {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .custom-checklist-instance:hover {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+}

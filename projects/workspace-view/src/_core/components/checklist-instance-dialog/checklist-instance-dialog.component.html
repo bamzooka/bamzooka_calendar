@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    <ng-template #fakeChecklistHeader>
+      <mc-icon [name]="'calendar-week'"></mc-icon>&nbsp;Scheduled checklist
+    </ng-template>
+    <ng-container *ngIf="!checklist.is_fake_checklist; else fakeChecklistHeader">
+      <mc-icon [name]="'card-checklist'"></mc-icon>&nbsp;Checklist
+    </ng-container>
+  </h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body checklist-detail-dialog-body">
+  TODO
+<!--  <bam-f-sh-checklist-instance-->
+<!--    [checklistInstance]="checklist"-->
+<!--    [classes]="['custom-checklist-instance']"-->
+<!--  ></bam-f-sh-checklist-instance>-->
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-link btn-sm" type="button" (click)="activeModal.dismiss('close link')">
+    close
+  </button>
+  <a
+    class="btn btn-primary btn-sm"
+    [routerLink]="getChecklistViewLink(checklist)"
+    (click)="activeModal.dismiss('navigate')"
+  >
+    <span *ngIf="!checklist.is_fake_checklist">go to checklist</span
+    ><span *ngIf="checklist.is_fake_checklist">go to template</span>&nbsp;<mc-icon
+    [name]="'box-arrow-up-right'"
+  ></mc-icon
+  ></a>
+</div>
