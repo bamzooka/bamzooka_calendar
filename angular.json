@@ -37,6 +37,12 @@
       "root": "projects/workspace-view",
       "sourceRoot": "projects/workspace-view/src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "fr": "public/locales/connectors.fr.json"
+        }
+      },
       "architect": {
         "build": {
           "builder": "ngx-build-plus:browser",
@@ -152,6 +158,12 @@
       "root": "projects/connectors",
       "sourceRoot": "projects/connectors/src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "fr": "public/locales/connectors.fr.json"
+        }
+      },
       "architect": {
         "build": {
           "builder": "ngx-build-plus:browser",
