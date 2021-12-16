@@ -14,223 +14,251 @@
 </div>
 
 <div class="page page-body">
-  <!-- <div class="calendar-header container-fluid"> -->
-  <div class="d-flex align-items-center mb-2">
-    <div class="d-flex align-items-center">
-      <ul class="pagination pagination-sm mb-0">
-        <li class="page-item" [class.disabled]="httpCallInProgress">
-          <button
-            class="page-link mr-1"
-            style="font-size: 10px"
-            mwlCalendarToday
-            [disabled]="httpCallInProgress"
-            [(viewDate)]="viewDate"
-          >
-            Today
+
+  <ng-template #calendarDisabled>
+    <div class="explanation mb-4">
+      <p>
+        <ng-template #disabledUpgrade>
+          <button class="btn btn-success"
+                  disabled>
+            upgrade to use calendar
           </button>
-        </li>
-      </ul>
-      <!-- Hidden mwlCalendarNavigationButtons -->
-      <div
-        class="btn btn-primary"
-        mwlCalendarPreviousView
-        [hidden]="true"
-        [view]="view"
-        #previousView
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
-        Previous
-      </div>
-      <div
-        class="btn btn-primary"
-        mwlCalendarNextView
-        #nextView
-        [hidden]="true"
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
-        Next
-      </div>
-      <mc-pagination
-        [loading]="httpCallInProgress"
-        (goNext)="nextView.click()"
-        (goPrev)="previousView.click()"
-        [displayPageNumbers]="false"
-      ></mc-pagination>
+        </ng-template>
+        <a class="btn btn-success"
+           *ngIf="canUpgrade() else disabledUpgrade"
+           target="_blank"
+           [href]="billingUrl">
+          upgrade to use calendar
+        </a>
+      </p>
+      <p>
+        Bamzooka calendar:
+        View all processes in one calendar — so you know exactly who’s doing what by when. Best way to plan and keep an
+        eye on the upcoming work.
+      </p>
     </div>
-    <h3 class="ml-1 mb-0">{{ viewDate | calendarDate: view + 'ViewTitle':'en' }}</h3>
-    <div class="ml-auto">
-      <div ngbDropdown placement="bottom-right">
-        <button
-          class="btn btn-primary btn-sm dropdown-toggle"
-          type="button"
-          [disabled]="httpCallInProgress"
-          id="viewTypeDropdownButton"
-          ngbDropdownToggle
+
+    <img class="img-fluid"
+         [src]="calendarPreviewUrl"
+         alt="Calendar view preview">
+  </ng-template>
+  <div *ngIf="currentWorkspace.plan_id === 4 else calendarDisabled">
+    <div class="d-flex align-items-center mb-2">
+      <div class="d-flex align-items-center">
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item" [class.disabled]="httpCallInProgress">
+            <button
+              class="page-link mr-1"
+              style="font-size: 10px"
+              mwlCalendarToday
+              [disabled]="httpCallInProgress"
+              [(viewDate)]="viewDate"
+            >
+              Today
+            </button>
+          </li>
+        </ul>
+        <!-- Hidden mwlCalendarNavigationButtons -->
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [hidden]="true"
+          [view]="view"
+          #previousView
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
         >
-          <ng-container [ngSwitch]="view">
-            <ng-container *ngSwitchCase="CalendarView.Month"> Month</ng-container>
-            <ng-container *ngSwitchCase="CalendarView.Week"> Week</ng-container>
-            <ng-container *ngSwitchCase="CalendarView.Day"> Day</ng-container>
-          </ng-container>
-        </button>
-        <div ngbDropdownMenu aria-labelledby="viewTypeDropdownButton">
+          Previous
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          #nextView
+          [hidden]="true"
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Next
+        </div>
+        <mc-pagination
+          [loading]="httpCallInProgress"
+          (goNext)="nextView.click()"
+          (goPrev)="previousView.click()"
+          [displayPageNumbers]="false"
+        ></mc-pagination>
+      </div>
+      <h3 class="ml-1 mb-0">{{ viewDate | calendarDate: view + 'ViewTitle':'en' }}</h3>
+      <div class="ml-auto">
+        <div ngbDropdown placement="bottom-right">
           <button
-            ngbDropdownItem
+            class="btn btn-primary btn-sm dropdown-toggle"
             type="button"
             [disabled]="httpCallInProgress"
-            (click)="setView(CalendarView.Month)"
+            id="viewTypeDropdownButton"
+            ngbDropdownToggle
           >
-            Month
+            <ng-container [ngSwitch]="view">
+              <ng-container *ngSwitchCase="CalendarView.Month"> Month</ng-container>
+              <ng-container *ngSwitchCase="CalendarView.Week"> Week</ng-container>
+              <ng-container *ngSwitchCase="CalendarView.Day"> Day</ng-container>
+            </ng-container>
           </button>
-          <button
-            ngbDropdownItem
-            type="button"
-            [disabled]="httpCallInProgress"
-            (click)="setView(CalendarView.Week)"
-          >
-            Week
-          </button>
-          <button
-            ngbDropdownItem
-            type="button"
-            [disabled]="httpCallInProgress"
-            (click)="setView(CalendarView.Day)"
-          >
-            Day
-          </button>
+          <div ngbDropdownMenu aria-labelledby="viewTypeDropdownButton">
+            <button
+              ngbDropdownItem
+              type="button"
+              [disabled]="httpCallInProgress"
+              (click)="setView(CalendarView.Month)"
+            >
+              Month
+            </button>
+            <button
+              ngbDropdownItem
+              type="button"
+              [disabled]="httpCallInProgress"
+              (click)="setView(CalendarView.Week)"
+            >
+              Week
+            </button>
+            <button
+              ngbDropdownItem
+              type="button"
+              [disabled]="httpCallInProgress"
+              (click)="setView(CalendarView.Day)"
+            >
+              Day
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- </div> -->
 
-  <!-- Custom cell template for month view -->
-  <!-- Custom cell template for month view -->
-  <!-- Custom cell template for month view -->
-  <!-- Custom cell template for month view -->
-  <ng-template
-    #customMonthCellTemplate
-    let-day="day"
-    let-openDay="openDay"
-    let-locale="locale"
-    let-tooltipPlacement="tooltipPlacement"
-    let-highlightDay="highlightDay"
-    let-unhighlightDay="unhighlightDay"
-    let-eventClicked="eventClicked"
-    let-tooltipTemplate="tooltipTemplate"
-    let-tooltipAppendToBody="tooltipAppendToBody"
-  >
-    <div class="cal-cell-top">
-      <!-- <span class="cal-day-badge"
-      *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span> -->
-      <span class="cal-day-number">{{ stringToDate(day.date) | calendarDate: 'monthViewDayNumber':locale }}</span>
-    </div>
-    <div class="cal-events d-flex flex-column justify-content-end" *ngIf="day?.events?.length > 0">
-      <div
-        *ngFor="let event of getSortedDayEvents(day)"
-        class="month-view-checklist-container"
-        [style.z-index]="shouldDisplayChecklistForEventForDay(event, day) ? '1' : '0'"
-        [ngClass]="event?.cssClass || ''"
-        [style.backgroundColor]="event.color?.primary"
-        (mouseenter)="highlightDay.emit({ event: event })"
-        (mouseleave)="unhighlightDay.emit({ event: event })"
-        [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event"
-        [tooltipPlacement]="tooltipPlacement"
-        [tooltipEvent]="event"
-        [tooltipTemplate]="tooltipTemplate"
-        [tooltipAppendToBody]="tooltipAppendToBody"
-        (mwlClick)="eventClicked.emit({ event: event })"
-      >
+    <!-- Custom cell template for month view -->
+    <!-- Custom cell template for month view -->
+    <!-- Custom cell template for month view -->
+    <!-- Custom cell template for month view -->
+    <ng-template
+      #customMonthCellTemplate
+      let-day="day"
+      let-openDay="openDay"
+      let-locale="locale"
+      let-tooltipPlacement="tooltipPlacement"
+      let-highlightDay="highlightDay"
+      let-unhighlightDay="unhighlightDay"
+      let-eventClicked="eventClicked"
+      let-tooltipTemplate="tooltipTemplate"
+      let-tooltipAppendToBody="tooltipAppendToBody"
+    >
+      <div class="cal-cell-top">
+        <!-- <span class="cal-day-badge"
+        *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span> -->
+        <span class="cal-day-number">{{ stringToDate(day.date) | calendarDate: 'monthViewDayNumber':locale }}</span>
+      </div>
+      <div class="cal-events d-flex flex-column justify-content-end" *ngIf="day?.events?.length > 0">
         <div
-          [class.ellipsis]="isTextEllipsis(event, day)"
-          [style.visibility]="
+          *ngFor="let event of getSortedDayEvents(day)"
+          class="month-view-checklist-container"
+          [style.z-index]="shouldDisplayChecklistForEventForDay(event, day) ? '1' : '0'"
+          [ngClass]="event?.cssClass || ''"
+          [style.backgroundColor]="event.color?.primary"
+          (mouseenter)="highlightDay.emit({ event: event })"
+          (mouseleave)="unhighlightDay.emit({ event: event })"
+          [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event"
+          [tooltipPlacement]="tooltipPlacement"
+          [tooltipEvent]="event"
+          [tooltipTemplate]="tooltipTemplate"
+          [tooltipAppendToBody]="tooltipAppendToBody"
+          (mwlClick)="eventClicked.emit({ event: event })"
+        >
+          <div
+            [class.ellipsis]="isTextEllipsis(event, day)"
+            [style.visibility]="
             shouldDisplayChecklistForEventForDay(event, day) ? 'visible' : 'hidden'
           "
-          class="w-100 checklist-info d-flex align-items-center"
-        >
-          <!-- User badge -->
-          <div class="mr-1" *ngIf="getChecklistForEvent(event)?.assignee">
-            <user-badge
-              [style]="{ width: '20px', height: '20px' }"
-              [classes]="['text-muted']"
-              [user]="getChecklistForEvent(event)?.assignee"
-            ></user-badge>
-          </div>
-          <!-- Checkmark if completed -->
-          <div class="mr-1" *ngIf="getChecklistForEvent(event)?.is_completed">
+            class="w-100 checklist-info d-flex align-items-center"
+          >
+            <!-- User badge -->
+            <div class="mr-1" *ngIf="getChecklistForEvent(event)?.assignee">
+              <user-badge
+                [style]="{ width: '20px', height: '20px' }"
+                [classes]="['text-muted']"
+                [user]="getChecklistForEvent(event)?.assignee"
+              ></user-badge>
+            </div>
+            <!-- Checkmark if completed -->
+            <div class="mr-1" *ngIf="getChecklistForEvent(event)?.is_completed">
             <span class="badge badge-pill badge-success completed-badge">
               <mc-icon [name]="'check'"></mc-icon>
             </span>
-          </div>
-          <div class="ellipsis pt-1 pb-1" *ngIf="getChecklistForEvent(event)?.title">
-            {{ getChecklistForEvent(event)?.title || ''  | mcTruncate: 100 }}
+            </div>
+            <div class="ellipsis pt-1 pb-1" *ngIf="getChecklistForEvent(event)?.title">
+              {{ getChecklistForEvent(event)?.title || ''  | mcTruncate: 100 }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </ng-template>
+    </ng-template>
 
-  <ng-template #eventTitle let-event="event" let-view="view">
-    <div class="w-100 d-flex align-items-center custom-event-title" style="line-height: normal">
-      <!-- User badge -->
-      <div
-        class="mr-1 d-flex align-items-center justify-content-center"
-        style="width: 20px; height: 20px"
-        *ngIf="getChecklistForEvent(event)?.assignee"
-      >
-        <user-badge
-          [style]="{ width: '20px', height: '20px' }"
-          [classes]="['text-muted']"
-          [user]="getChecklistForEvent(event)?.assignee"
-        ></user-badge>
-      </div>
-      <!-- Checkmark if completed -->
-      <div class="mr-1" *ngIf="getChecklistForEvent(event)?.is_completed">
+    <ng-template #eventTitle let-event="event" let-view="view">
+      <div class="w-100 d-flex align-items-center custom-event-title" style="line-height: normal">
+        <!-- User badge -->
+        <div
+          class="mr-1 d-flex align-items-center justify-content-center"
+          style="width: 20px; height: 20px"
+          *ngIf="getChecklistForEvent(event)?.assignee"
+        >
+          <user-badge
+            [style]="{ width: '20px', height: '20px' }"
+            [classes]="['text-muted']"
+            [user]="getChecklistForEvent(event)?.assignee"
+          ></user-badge>
+        </div>
+        <!-- Checkmark if completed -->
+        <div class="mr-1" *ngIf="getChecklistForEvent(event)?.is_completed">
         <span class="badge badge-pill badge-success completed-badge">
           <mc-icon [name]="'check'"></mc-icon>
         </span>
+        </div>
+        <div class="ellipsis" *ngIf="getChecklistForEvent(event)?.title">
+          {{ getChecklistForEvent(event)?.title || '' | mcTruncate: 100 }}
+        </div>
       </div>
-      <div class="ellipsis" *ngIf="getChecklistForEvent(event)?.title">
-        {{ getChecklistForEvent(event)?.title || '' | mcTruncate: 100 }}
-      </div>
-    </div>
-  </ng-template>
+    </ng-template>
 
-  <div [ngSwitch]="view">
-    <mwl-calendar-month-view
-      *ngSwitchCase="CalendarView.Month"
-      [cellTemplate]="customMonthCellTemplate"
-      [viewDate]="viewDate"
-      [events]="events"
-      [refresh]="refresh"
-      [activeDayIsOpen]="activeDayIsOpen"
-      (dayClicked)="dayClicked($event.day)"
-      (eventClicked)="handleEvent(eventActions.CLICKED, $event.event)"
-      (beforeViewRender)="beforeViewRender($event)"
-    >
-    </mwl-calendar-month-view>
-    <mwl-calendar-week-view
-      *ngSwitchCase="CalendarView.Week"
-      [viewDate]="viewDate"
-      [events]="events"
-      [eventTitleTemplate]="eventTitle"
-      [refresh]="refresh"
-      (beforeViewRender)="beforeViewRender($event)"
-      (eventClicked)="handleEvent(eventActions.CLICKED, $event.event)"
-    >
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
-      *ngSwitchCase="CalendarView.Day"
-      [viewDate]="viewDate"
-      [events]="events"
-      [eventTitleTemplate]="eventTitle"
-      [refresh]="refresh"
-      (beforeViewRender)="beforeViewRender($event)"
-      (eventClicked)="handleEvent(eventActions.CLICKED, $event.event)"
-    >
-    </mwl-calendar-day-view>
+    <div [ngSwitch]="view">
+      <mwl-calendar-month-view
+        *ngSwitchCase="CalendarView.Month"
+        [cellTemplate]="customMonthCellTemplate"
+        [viewDate]="viewDate"
+        [events]="events"
+        [refresh]="refresh"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="handleEvent(eventActions.CLICKED, $event.event)"
+        (beforeViewRender)="beforeViewRender($event)"
+      >
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="CalendarView.Week"
+        [viewDate]="viewDate"
+        [events]="events"
+        [eventTitleTemplate]="eventTitle"
+        [refresh]="refresh"
+        (beforeViewRender)="beforeViewRender($event)"
+        (eventClicked)="handleEvent(eventActions.CLICKED, $event.event)"
+      >
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="CalendarView.Day"
+        [viewDate]="viewDate"
+        [events]="events"
+        [eventTitleTemplate]="eventTitle"
+        [refresh]="refresh"
+        (beforeViewRender)="beforeViewRender($event)"
+        (eventClicked)="handleEvent(eventActions.CLICKED, $event.event)"
+      >
+      </mwl-calendar-day-view>
+    </div>
   </div>
 </div>

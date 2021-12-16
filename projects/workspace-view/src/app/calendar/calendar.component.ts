@@ -26,6 +26,7 @@ import {
   SchedulerFilter
 } from "../../_core";
 import {McLoggerService} from "@bamzooka/ui-kit-logger";
+import {getProtocolAndDomain} from '@bamzooka/utils-general';
 import {HttpParams} from "@angular/common/http";
 import {finalize} from "rxjs/operators";
 import {DataService} from "../../_core/services/data.service";
@@ -63,6 +64,7 @@ export class CalendarComponent {
   events: CalendarEvent[] = [];
   activeDayIsOpen = false;
   httpCallInProgress = false;
+  calendarPreviewUrl = getProtocolAndDomain() + '/assets/features/CALENDAR_VIEW.png';
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -90,6 +92,18 @@ export class CalendarComponent {
 
   get currentWorkspace(): any {
     return (window as any).currentWorkspace;
+  }
+
+  get currentUserWorkspaceRole(): number {
+    return (window as any).currentWorkspaceRole;
+  }
+
+  get billingUrl(): string {
+    return `/ngn_billing/billed_items/${this.currentWorkspace.id}/manage_plans`;
+  }
+
+  canUpgrade(): boolean {
+    return this.currentUserWorkspaceRole >= 30; // 30 is ADMIN role
   }
 
   dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
@@ -280,8 +294,5 @@ export class CalendarComponent {
       EVENT_COLOR_MEANING.TEMPLATE,
       this.actions
     );
-
-    console.log('+++++events', this.events);
-
   }
 }
