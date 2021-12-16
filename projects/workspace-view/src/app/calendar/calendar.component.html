@@ -14,7 +14,10 @@
 </div>
 
 <div class="page page-body">
-
+  <!--  Feature preview when calendar disabled-->
+  <!--  Feature preview when calendar disabled-->
+  <!--  Feature preview when calendar disabled-->
+  <!--  Feature preview when calendar disabled-->
   <ng-template #calendarDisabled>
     <div class="explanation mb-4">
       <p>
@@ -42,7 +45,11 @@
          [src]="calendarPreviewUrl"
          alt="Calendar view preview">
   </ng-template>
-  <div *ngIf="currentWorkspace.plan_id === 4 else calendarDisabled">
+  <!--  Only enabled if billing engine is not plugged (so no plan id) or plan_id is business-->
+  <!--  Only enabled if billing engine is not plugged (so no plan id) or plan_id is business-->
+  <!--  Only enabled if billing engine is not plugged (so no plan id) or plan_id is business-->
+  <!--  Only enabled if billing engine is not plugged (so no plan id) or plan_id is business-->
+  <div *ngIf="!currentWorkspace ||  currentWorkspace.plan_id === 4 else calendarDisabled">
     <div class="d-flex align-items-center mb-2">
       <div class="d-flex align-items-center">
         <ul class="pagination pagination-sm mb-0">
