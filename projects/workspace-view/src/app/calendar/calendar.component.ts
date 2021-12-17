@@ -64,7 +64,7 @@ export class CalendarComponent {
   events: CalendarEvent[] = [];
   activeDayIsOpen = false;
   httpCallInProgress = false;
-  calendarPreviewUrl = getProtocolAndDomain() + '/assets/features/CALENDAR_VIEW.png';
+  calendarPreviewUrl = getProtocolAndDomain() + '/assets/images/features/CALENDAR_VIEW.png';
 
   constructor(
     private cdr: ChangeDetectorRef,
